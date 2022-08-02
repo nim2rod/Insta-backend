@@ -92,14 +92,8 @@ function _buildCriteria(filterBy) {
 
 async function update(story) {
     try {
-        // peek only updatable properties
         var id = ObjectId(story._id)
         delete story._id
-        // const storyToSave = {
-        //     _id: ObjectId(story._id), // needed for the returnd obj
-        //     comments: story.comments,
-        //     likedBy: story.likedBy
-        // }
         const collection = await dbService.getCollection('story')
         await collection.updateOne({ _id: id }, { $set: { ...story } })
         story._id = id
