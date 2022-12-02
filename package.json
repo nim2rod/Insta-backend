@@ -19,7 +19,7 @@
         "express": "^4.17.1",
         "mongodb": "^3.2.7",
         "socket.io": "^4.2.0",
-        "vuex": "^4.0.2"
+        "vuex": "^4.1.0"
     },
     "devDependencies": {
         "nodemon": "1.18.10"
