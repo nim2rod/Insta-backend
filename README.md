@@ -32,6 +32,7 @@ It was an adventure and great experience to deal with this challenge.
 - vue.JS with vuex state management  - Client side <br>
 - MongoDB Atlas Database - database.
 - Render - deploy and host for the site. 
+- Link to live project:   https://instafriends.onrender.com
 
  
  ## 
