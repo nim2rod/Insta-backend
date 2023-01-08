@@ -29,7 +29,7 @@ It was an adventure and great experience to deal with this challenge.
 
 ## What i used for building the app?
 - node.JS - Server side <br>
-- vue.JS with vuex state management  - Client side <br>
+- vue.JS with vuex state management and Vite dev environment - Client side <br>
 - MongoDB Atlas Database - database.
 - Render - deploy and host for the site. 
 - Link to live project:   https://instafriends.onrender.com
