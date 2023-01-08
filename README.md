@@ -2,7 +2,7 @@
 Media app for connecting with friends - inspired by Instagram app and the great sitcom Friends. 
 
 
-## What is does?
+## What the app do?
 The app have the abbility to:
 - Newsfeed tab:<br> 
 See posts of accounts that the you follow.
