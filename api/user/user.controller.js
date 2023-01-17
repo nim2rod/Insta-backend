@@ -3,6 +3,7 @@ const socketService = require('../../services/socket.service')
 const logger = require('../../services/logger.service')
 
 async function getUser(req, res) {
+    console.log('get-user-back-userController-req:', req);
     try {
         const user = await userService.getById(req.params.id)
         res.send(user)

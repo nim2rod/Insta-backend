@@ -5,9 +5,9 @@ const asyncLocalStorage = require('../../services/als.service')
 const { useStore } = require('vuex')
 
 async function query(filterBy = {}) {
+    const criteria = _buildCriteria(filterBy)
     try {
         console.log('query-storyService');
-        const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('story')
         const stories = await collection.find(criteria).toArray()
 
@@ -94,6 +94,7 @@ async function update(story) {
     try {
         var id = ObjectId(story._id)
         delete story._id
+
         const collection = await dbService.getCollection('story')
         await collection.updateOne({ _id: id }, { $set: { ...story } })
         story._id = id
