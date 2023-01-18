@@ -18,6 +18,8 @@ of every one you want - just click on his name(or your name to go to your profil
 In the newsfeed tab or in comment view. 
 - Add post:<br> 
 with location, text and picture. 
+- Multyply Users to choose from:<br>
+The looged in User comes from the backend and stay on the store. 
 
 
 ## The motivation and achedule
