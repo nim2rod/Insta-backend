@@ -34,8 +34,9 @@ It was an adventure and great experience to deal with this challenge.
 - vue.JS with vuex state management and Vite dev environment - Client side <br>
 - MongoDB Atlas Database - database.
 - Render - deploy and host for the site. 
-- Link to live project:   https://instafriends.onrender.com
 - Socket.IO package - for real time changes. 
+- Link to live project:   https://instafriends.onrender.com
+- Link Client side repository: https://github.com/nim2rod/insta-front
 
  
 ## 
