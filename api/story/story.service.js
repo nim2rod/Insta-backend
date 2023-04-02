@@ -9,15 +9,21 @@ async function query(filterBy = {}) {
     try {
         console.log('query-storyService');
         const collection = await dbService.getCollection('story')
-        const stories = await collection.find(criteria).toArray()
+        let stories = await collection.find(criteria).toArray()
 
-        // stories = stories.map(story => {
-        //     story.byUser = { _id: story.byUser._id, fullname: story.byUser.fullname }
-        //     story.aboutUser = { _id: story.aboutUser._id, fullname: story.aboutUser.fullname }
-        //     delete story.byUserId
-        //     delete story.aboutUserId
-        //     return story
-        // })
+        stories = stories.map(story => {
+            // story.createdAt = ObjectId(story._id).getTimestamp()
+            const timestamp = ObjectId(story._id).getTimestamp()
+            const formattedTimestamp = new Date(timestamp)
+                .toLocaleString('en-US', { timeZone: 'UTC' })
+
+            const miliSec = new Date(timestamp).getTime()
+            const timeAgo = Date.now() - miliSec
+
+            story.timeAgoMiliSec = timeAgo
+            story.createdAt = formattedTimestamp
+            return story
+        })
 
         return stories
     } catch (err) {
