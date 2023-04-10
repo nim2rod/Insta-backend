@@ -37,6 +37,17 @@ async function getById(storyId) {
         const collection = await dbService.getCollection('story')
         const story = await collection.findOne({ _id: ObjectId(storyId) })
 
+        ///
+        const timestamp = ObjectId(story._id).getTimestamp()
+        const formattedTimestamp = new Date(timestamp)
+            .toLocaleString('en-US', { timeZone: 'UTC' })
+
+        const miliSec = new Date(timestamp).getTime()
+        const timeAgo = Date.now() - miliSec
+
+        story.timeAgoMiliSec = timeAgo
+        story.createdAt = formattedTimestamp
+        ///
         // story.givenReviews = await reviewService.query({ byUserId: ObjectId(story._id) })
         // story.givenReviews = story.givenReviews.map(review => {
         //     delete review.byUser
@@ -83,10 +94,8 @@ async function remove(storyId) {
 // }
 
 async function add(story) {
-    // console.log('adddddddddddddd', story);
     const collection = await dbService.getCollection('story')
     const { ops } = await collection.insertOne(story)
-    // console.log('opsopsopsooooooooops', ops);
     return ops[0]
 }
 

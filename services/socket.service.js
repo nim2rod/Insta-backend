@@ -28,7 +28,14 @@ function setupSocketAPI(http) {
             // gIo.to(socket.myStory).emit('other-user-add-comment', story)
             gIo.emit('other-user-add-comment', story)
         })
-
+        socket.on('this-user-add-like', story => {
+            logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myStory}`)
+            gIo.emit('other-user-add-like', story)
+        })
+        socket.on('this-user-add-like-to-comment', story => {
+            logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myStory}`)
+            gIo.emit('other-user-add-like-to-story', story)
+        })
     })
 }
 
