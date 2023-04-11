@@ -6,8 +6,10 @@ const storyService = require('./story.service')
 async function getStories(req, res) {
     try {
         console.log('getStories-back');
-        // const queryParams = req.query
-        const stories = await storyService.query(req.query)
+        const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+        const skip = req.query.skip ? parseInt(req.query.skip) : 0;
+
+        const stories = await storyService.query(req.query, limit, skip)
         res.send(stories)
     } catch (err) {
         logger.error('Cannot get stories', err)

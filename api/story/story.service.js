@@ -4,12 +4,13 @@ const ObjectId = require('mongodb').ObjectId
 const asyncLocalStorage = require('../../services/als.service')
 const { useStore } = require('vuex')
 
-async function query(filterBy = {}) {
+async function query(filterBy = {}, limit = 10, skip = 0) {
     const criteria = _buildCriteria(filterBy)
     try {
         console.log('query-storyService');
         const collection = await dbService.getCollection('story')
-        let stories = await collection.find(criteria).toArray()
+        // let stories = await collection.find(criteria).toArray()
+        let stories = await collection.find(criteria).limit(limit).skip(skip).toArray()
 
         stories = stories.map(story => {
             // story.createdAt = ObjectId(story._id).getTimestamp()
