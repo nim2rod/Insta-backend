@@ -3,17 +3,14 @@ const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 const asyncLocalStorage = require('../../services/als.service')
 const { useStore } = require('vuex')
+const { filter } = require('cheerio-without-node-native/lib/api/traversing')
 
 async function query(filterBy = {}, limit = 10, skip = 0) {
     const criteria = _buildCriteria(filterBy)
     try {
-        console.log('query-storyService');
         const collection = await dbService.getCollection('story')
-        // let stories = await collection.find(criteria).toArray()
         let stories = await collection.find(criteria).limit(limit).skip(skip).toArray()
-
         stories = stories.map(story => {
-            // story.createdAt = ObjectId(story._id).getTimestamp()
             const timestamp = ObjectId(story._id).getTimestamp()
             const formattedTimestamp = new Date(timestamp)
                 .toLocaleString('en-US', { timeZone: 'UTC' })
@@ -101,8 +98,18 @@ async function add(story) {
 }
 
 function _buildCriteria(filterBy) {
+    console.log('filtarBy - build', filterBy);
     const criteria = {}
-    if (filterBy.byUserId) criteria.byUserId = filterBy.byUserId
+    if (filterBy.by) filterBy.by = JSON.parse(filterBy.by)
+    console.log('filtarBy - after parse', filterBy);
+
+    if (filterBy.by && filterBy.by.username) {
+        console.log('iffff');
+        criteria['by.username'] = { $regex: filterBy.by.username, $options: 'i' }
+        // criteria.by.username = filterBy.by.username
+        // criteria.byUserId = filterBy.byUserId
+    }
+    console.log('buildCritiria-critiria', criteria);
     return criteria
 }
 
