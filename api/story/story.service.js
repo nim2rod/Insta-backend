@@ -3,7 +3,7 @@ const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 const asyncLocalStorage = require('../../services/als.service')
 const { useStore } = require('vuex')
-const { filter } = require('cheerio-without-node-native/lib/api/traversing')
+// const { filter } = require('cheerio-without-node-native/lib/api/traversing')
 
 async function query(filterBy = {}, limit = 10, skip = 0) {
     const criteria = _buildCriteria(filterBy)
