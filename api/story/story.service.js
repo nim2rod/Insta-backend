@@ -3,7 +3,6 @@ const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
 const asyncLocalStorage = require('../../services/als.service')
 const { useStore } = require('vuex')
-// const { filter } = require('cheerio-without-node-native/lib/api/traversing')
 
 async function query(filterBy = {}, limit = 10, skip = 0) {
     const criteria = _buildCriteria(filterBy)
@@ -45,12 +44,6 @@ async function getById(storyId) {
 
         story.timeAgoMiliSec = timeAgo
         story.createdAt = formattedTimestamp
-        ///
-        // story.givenReviews = await reviewService.query({ byUserId: ObjectId(story._id) })
-        // story.givenReviews = story.givenReviews.map(review => {
-        //     delete review.byUser
-        //     return review
-        // })
 
         return story
     } catch (err) {
@@ -75,22 +68,6 @@ async function remove(storyId) {
     }
 }
 
-// async function add(story) {
-//     try {
-//         const storyToAdd = {
-//             byUserId: ObjectId(story.byUserId),
-//             aboutUserId: ObjectId(story.aboutUserId),
-//             txt: story.txt
-//         }
-//         const collection = await dbService.getCollection('story')
-//         await collection.insertOne(storyToAdd)
-//         return storyToAdd
-//     } catch (err) {
-//         logger.error('cannot insert story', err)
-//         throw err
-//     }
-// }
-
 async function add(story) {
     const collection = await dbService.getCollection('story')
     const { ops } = await collection.insertOne(story)
@@ -98,18 +75,11 @@ async function add(story) {
 }
 
 function _buildCriteria(filterBy) {
-    console.log('filtarBy - build', filterBy);
     const criteria = {}
     if (filterBy.by) filterBy.by = JSON.parse(filterBy.by)
-    console.log('filtarBy - after parse', filterBy);
-
     if (filterBy.by && filterBy.by.username) {
-        console.log('iffff');
         criteria['by.username'] = { $regex: filterBy.by.username, $options: 'i' }
-        // criteria.by.username = filterBy.by.username
-        // criteria.byUserId = filterBy.byUserId
     }
-    console.log('buildCritiria-critiria', criteria);
     return criteria
 }
 
@@ -117,7 +87,6 @@ async function update(story) {
     try {
         var id = ObjectId(story._id)
         delete story._id
-
         const collection = await dbService.getCollection('story')
         await collection.updateOne({ _id: id }, { $set: { ...story } })
         story._id = id

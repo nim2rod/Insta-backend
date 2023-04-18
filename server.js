@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 
 const app = express()
 const http = require('http').createServer(app)
+require('dotenv').config()
 
 // Express App Config
 app.use(cookieParser())
