@@ -36,6 +36,10 @@ function setupSocketAPI(http) {
             logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myStory}`)
             gIo.emit('other-user-add-like-to-story', story)
         })
+        socket.on('this-user-saved-story', user => {
+            logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myStory}`)
+            gIo.emit('other-device-save-story', user)
+        })
     })
 }
 
