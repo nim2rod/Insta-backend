@@ -13,11 +13,11 @@ module.exports = {
     add
 }
 
-async function query(filterBy = {}) {
+async function query(filterBy = {}, limit = 6, skip = 0) {
     const criteria = _buildCriteria(filterBy)
     try {
         const collection = await dbService.getCollection('user')
-        var users = await collection.find(criteria).toArray()
+        var users = await collection.find(criteria).limit(limit).skip(skip).toArray()
         // users = users.map(user => {
         //     delete user.password
         //     user.createdAt = ObjectId(user._id).getTimestamp()

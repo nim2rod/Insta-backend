@@ -15,11 +15,13 @@ async function getUser(req, res) {
 
 async function getUsers(req, res) {
     try {
+        const limit = req.query.limit ? parseInt(req.query.limit) : 6;
+        const skip = req.query.skip ? parseInt(req.query.skip) : 0;
         const filterBy = {
             txt: req.query?.txt || '',
             minBalance: +req.query?.minBalance || 0
         }
-        const users = await userService.query(filterBy)
+        const users = await userService.query(filterBy, limit, skip)
         res.send(users)
     } catch (err) {
         logger.error('Failed to get users', err)
